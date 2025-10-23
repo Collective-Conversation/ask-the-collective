@@ -1,0 +1,118 @@
+name: Intake Routing and Auto-Label
+on:
+  issues:
+    types: [opened]
+  discussion:
+    types: [created]
+
+jobs:
+  auto_label_issue:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const text = context.payload.issue.title + "\n" + context.payload.issue.body;
+            const labels = [];
+            
+            // Content type detection
+            const labelMap = [
+              [/slop|jpeg|artifact|hallucination|synthetic|generated/i, 'slop'],
+              [/sludge|spam|content farm|low.?quality/i, 'sludge'],
+              [/exif|metadata|header|whois|dns|geolocat/i, 'metadata'],
+              [/ethic|consent|privacy|boundary|governance/i, 'ethics'],
+              [/image|photo|screenshot|visual/i, 'imagery'],
+              [/video|deepfake|manipulation/i, 'video'],
+              [/verif|authenticat|source.?check/i, 'verification'],
+              [/platform|twitter|facebook|tiktok|instagram/i, 'platform-guide'],
+              [/train|education|learn|course|tutorial/i, 'education']
+            ];
+            
+            for (const [regex, label] of labelMap) {
+              if (regex.test(text)) labels.push(label);
+            }
+            
+            // Entity question detection
+            if (/entity asking|collective member|question from/i.test(text)) {
+              labels.push('entity-question');
+            }
+            
+            // Default to triage if nothing matched
+            if (labels.length === 0) labels.push('triage-needed');
+            
+            // Apply labels
+            await github.rest.issues.addLabels({
+              ...context.repo,
+              issue_number: context.issue.number,
+              labels: labels
+            });
+            
+            // Acknowledgment comment
+            const ackMessage = labels.includes('entity-question')
+              ? "Thank you for your question. Community members with relevant expertise are welcome to respond."
+              : "Thanks for your question. A collective member will review and respond. For safety, we may generalize or redact details before answering.";
+            
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: ackMessage
+            });
+  
+  auto_label_discussion:
+    if: github.event_name == 'discussion'
+    runs-on: ubuntu-latest
+    permissions:
+      discussions: write
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const discussion = context.payload.discussion;
+            const text = discussion.title + "\n" + discussion.body;
+            const labels = [];
+            
+            // Content type detection
+            const labelMap = [
+              [/slop|jpeg|artifact|hallucination|synthetic|generated/i, 'slop'],
+              [/sludge|spam|content farm|low.?quality/i, 'sludge'],
+              [/exif|metadata|header|whois|dns|geolocat/i, 'metadata'],
+              [/ethic|consent|privacy|boundary|governance/i, 'ethics'],
+              [/image|photo|screenshot|visual/i, 'imagery'],
+              [/video|deepfake|manipulation/i, 'video'],
+              [/verif|authenticat|source.?check/i, 'verification'],
+              [/platform|twitter|facebook|tiktok|instagram/i, 'platform-guide'],
+              [/train|education|learn|course|tutorial/i, 'education']
+            ];
+            
+            for (const [regex, label] of labelMap) {
+              if (regex.test(text)) labels.push(label);
+            }
+            
+            // Entity question detection
+            if (/entity asking|collective member|question from/i.test(text)) {
+              labels.push('entity-question');
+            }
+            
+            if (labels.length === 0) labels.push('triage-needed');
+            
+            // Apply labels via GraphQL (discussions don't support REST labels API yet)
+            const labelNames = labels.join(',');
+            
+            // Add comment acknowledgment
+            const ackMessage = labels.includes('entity-question')
+              ? "Thank you for your question. Community members with relevant expertise are welcome to respond."
+              : "Thanks for your question. A collective member will review and respond. For safety, we may generalize or redact details before answering.";
+            
+            await github.graphql(`
+              mutation($discussionId: ID!, $body: String!) {
+                addDiscussionComment(input: {discussionId: $discussionId, body: $body}) {
+                  comment { id }
+                }
+              }
+            `, {
+              discussionId: discussion.node_id,
+              body: `${ackMessage}\n\n*Auto-detected labels: ${labelNames}*`
+            });
