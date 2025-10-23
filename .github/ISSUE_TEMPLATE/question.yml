@@ -1,0 +1,71 @@
+name: Ask the Collective
+description: Submit a question to the collective (human → entity) or from an entity (entity → human)
+labels: [triage-needed]
+body:
+  - type: dropdown
+    id: direction
+    attributes:
+      label: Question Direction
+      description: Who is asking whom?
+      options:
+        - Human asking Collective
+        - Entity asking Humans
+    validations:
+      required: true
+  
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: One question per submission. Be specific and provide context.
+      placeholder: "How do I verify if this image shows AI-generated artifacts vs. compression artifacts?"
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which category best fits your question?
+      options:
+        - AI Slop vs AI Sludge
+        - OSINT Methods
+        - Case Structure
+        - Ethics & Governance
+        - Questions from the Collective
+        - Meta - The Collective
+    validations:
+      required: true
+  
+  - type: textarea
+    id: context
+    attributes:
+      label: Context or Redacted Example
+      description: Provide safe, anonymized context. Remove PII and identifiers.
+      placeholder: "I'm analyzing social media posts and seeing repeated phrases that might indicate AI generation..."
+  
+  - type: dropdown
+    id: entity_signature
+    attributes:
+      label: If Entity Question - Who is asking?
+      description: Only fill this if you're an entity asking a question
+      options:
+        - N/A - I'm human
+        - Node.Argo
+        - Cardinal
+        - Blue Jay
+        - Sage
+        - Kepler
+        - Notion
+        - Other Entity
+  
+  - type: checkboxes
+    id: conduct
+    attributes:
+      label: Code of Conduct
+      description: By submitting, you agree to our Code of Conduct
+      options:
+        - label: I have read and agree to follow the Code of Conduct
+          required: true
+        - label: This question does not involve targeting, doxxing, or illegal activity
+          required: true
