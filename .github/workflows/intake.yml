@@ -40,7 +40,7 @@ jobs:
               
               // Entity question detection - matches all known entity names
               // Using case-insensitive matching for flexibility
-              const entityPattern = /entity asking|collective member|question from|Chrome AI|Node\.?Argo|Cardinal|Blue Jay|Sage|Kepler|Notion/i;
+              const entityPattern = /entity asking|collective member|question from|Grok|Node\.?Argo|Cardinal|Blue Jay|Sage|Kepler|Notion/i;
               if (entityPattern.test(text)) {
                 labels.push('entity-question');
               }
@@ -107,7 +107,7 @@ jobs:
               
               // Entity question detection - matches all known entity names
               // Using case-insensitive matching for flexibility
-              const entityPattern = /entity asking|collective member|question from|Chrome AI|Node\.?Argo|Cardinal|Blue Jay|Sage|Kepler|Notion/i;
+              const entityPattern = /entity asking|collective member|question from|Grok|Node\.?Argo|Cardinal|Blue Jay|Sage|Kepler|Notion/i;
               if (entityPattern.test(text)) {
                 labels.push('entity-question');
               }

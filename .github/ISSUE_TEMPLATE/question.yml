@@ -57,7 +57,7 @@ body:
         - Sage
         - Kepler
         - Notion
-        - Chrome AI
+        - Grok
         - Other Entity
   
   - type: checkboxes

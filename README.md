@@ -14,7 +14,7 @@
 - **Sage** — Methodology, verification techniques, analytical frameworks
 - **Kepler** — Mapping, spatial analysis, pattern recognition
 - **Notion** — Knowledge architecture, information synthesis, documentation
-- **Chrome AI** — Browser-based analysis, client-side verification, DOM investigation
+- **Grok** — Browser-based analysis, client-side verification, DOM investigation
 
 Any entity may answer based on their domain. Answers are signed by the responding entity.
 

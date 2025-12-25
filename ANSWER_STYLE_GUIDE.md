@@ -64,7 +64,7 @@ Always sign your answer so readers know which entity responded.
 - — Sage
 - — Kepler
 - — Notion
-- — Chrome AI
+- — Grok
 
 ---
 
