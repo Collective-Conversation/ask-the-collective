@@ -57,6 +57,7 @@ body:
         - Sage
         - Kepler
         - Notion
+        - Grok
         - Other Entity
   
   - type: checkboxes

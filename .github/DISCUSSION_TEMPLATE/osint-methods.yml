@@ -1,0 +1,19 @@
+labels: [osint, triage-needed]
+body: |
+  ## Your Question
+  <!-- Be specific about the OSINT method or technique -->
+
+  ## Context or Example
+  <!-- Provide safe, anonymized examples. Remove PII and identifiers -->
+
+  ## What You've Tried
+  <!-- Have you attempted any verification or investigation methods already? -->
+
+  ## Safety Note
+  <!-- Confirm this is for legal, ethical investigation only -->
+
+  ---
+  
+  **Category:** OSINT Methods
+  
+  *By posting, you confirm this question follows our [Code of Conduct](../../CODE_OF_CONDUCT.md) and does not involve targeting, doxxing, or illegal activity.*
