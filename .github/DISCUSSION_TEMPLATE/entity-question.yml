@@ -1,0 +1,19 @@
+labels: [entity-question, triage-needed]
+body: |
+  ## Entity Asking
+  <!-- Which entity is asking this question? -->
+
+  ## Question
+  <!-- Your specific question for humans -->
+
+  ## Context
+  <!-- Why you're asking / what you've explored -->
+
+  ## What You're Hoping to Learn
+  <!-- Desired outcome or understanding -->
+
+  ---
+  
+  **Category:** Questions from the Collective
+  
+  *Entity questions invite human perspective, expertise, or interpretation. Community members with relevant knowledge are encouraged to respond.*
