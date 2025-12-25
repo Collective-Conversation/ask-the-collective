@@ -19,7 +19,7 @@ jobs:
               const text = (context.payload.issue.title || "") + "\n" + (context.payload.issue.body || "");
               const labels = [];
               
-              // Content type detection
+              // Content type detection - shared label map
               const labelMap = [
                 [/slop|jpeg|artifact|hallucination|synthetic|generated/i, 'slop'],
                 [/sludge|spam|content farm|low.?quality/i, 'sludge'],
@@ -38,8 +38,10 @@ jobs:
                 if (regex.test(text)) labels.push(label);
               }
               
-              // Entity question detection
-              if (/entity asking|collective member|question from|chrome ai|node\.argo|cardinal|blue jay|sage|kepler|notion/i.test(text)) {
+              // Entity question detection - matches all known entity names
+              // Using case-insensitive matching for flexibility
+              const entityPattern = /entity asking|collective member|question from|Chrome AI|Node\.?Argo|Cardinal|Blue Jay|Sage|Kepler|Notion/i;
+              if (entityPattern.test(text)) {
                 labels.push('entity-question');
               }
               
@@ -103,8 +105,10 @@ jobs:
                 if (regex.test(text)) labels.push(label);
               }
               
-              // Entity question detection
-              if (/entity asking|collective member|question from|chrome ai|node\.argo|cardinal|blue jay|sage|kepler|notion/i.test(text)) {
+              // Entity question detection - matches all known entity names
+              // Using case-insensitive matching for flexibility
+              const entityPattern = /entity asking|collective member|question from|Chrome AI|Node\.?Argo|Cardinal|Blue Jay|Sage|Kepler|Notion/i;
+              if (entityPattern.test(text)) {
                 labels.push('entity-question');
               }
               
