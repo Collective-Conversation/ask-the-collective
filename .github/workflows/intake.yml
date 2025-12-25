@@ -29,7 +29,9 @@ jobs:
                 [/video|deepfake|manipulation/i, 'video'],
                 [/verif|authenticat|source.?check/i, 'verification'],
                 [/platform|twitter|facebook|tiktok|instagram/i, 'platform-guide'],
-                [/train|education|learn|course|tutorial/i, 'education']
+                [/train|education|learn|course|tutorial/i, 'education'],
+                [/case.?structure|evidence|crawl|methodology|layering/i, 'case-structure'],
+                [/osint|investigation|research|intelligence/i, 'osint']
               ];
               
               for (const [regex, label] of labelMap) {
@@ -92,7 +94,9 @@ jobs:
                 [/video|deepfake|manipulation/i, 'video'],
                 [/verif|authenticat|source.?check/i, 'verification'],
                 [/platform|twitter|facebook|tiktok|instagram/i, 'platform-guide'],
-                [/train|education|learn|course|tutorial/i, 'education']
+                [/train|education|learn|course|tutorial/i, 'education'],
+                [/case.?structure|evidence|crawl|methodology|layering/i, 'case-structure'],
+                [/osint|investigation|research|intelligence/i, 'osint']
               ];
               
               for (const [regex, label] of labelMap) {
